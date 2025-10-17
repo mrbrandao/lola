@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "lola"
+version = "0.1.0"
+description = "Load Lazy Contexts as Modules"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "click>=8.3.0",
+    "rich>=13.0.0",
+    "pyyaml>=6.0.0",
+]
+
+[project.scripts]
+lola = "lola.main:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/lola"]

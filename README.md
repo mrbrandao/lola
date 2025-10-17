@@ -177,7 +177,7 @@ Contributions welcome:
 
 ## License
 
-[Add your license here]
+[GPL-2.0-or-later](https://spdx.org/licenses/GPL-2.0-or-later.html)
 
 ## Author
 

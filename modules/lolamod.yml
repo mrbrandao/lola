@@ -1,0 +1,14 @@
+---
+# lolamod is the manifest fail for lola modules
+version: 0.1.0
+lolas:
+  - name: chef-baking-buddy
+    desc: "A Baking Chef Assistant"
+    path: "./chef-baking-buddy"
+    main: AGENTS.md
+    dest:
+      - cursor
+    assets:
+      - "context"
+      - "scripts"
+      - "templates"

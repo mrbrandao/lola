@@ -1,5 +1,5 @@
 ---
-# lolamod is the manifest fail for lola modules
+# the modules manifest for lola
 version: 0.1.0
 lolas:
   - name: chef-buddy

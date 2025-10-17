@@ -1,22 +1,21 @@
 # Lola - Loading Lazy Contexts
 
-A tool to manage AI context as installable modules for LLM assistants. 
-Lola implements **lazy context loading** - a meta-programming technique for 
-optimizing LLM workflows through modular, on-demand context injection.
-
-## What is Lola?
-
-Lola lets you package AI contexts (personas, workflows, scripts, templates) 
-into reusable modules that can be shared and installed across projects. 
+Lola lets you package AI contexts (personas, workflows, scripts, templates)
+into reusable modules that can be shared and installed across projects.
 Instead of writing monolithic prompts, you build modular, efficient AI programs.
 
 **Think of it this way:**
+
 - The LLM is a **non-deterministic CPU**
 - Your prompts are the **assembly language**
 - Lola modules are **libraries** that get loaded only when needed
 - Context injection is **lazy loading** for AI instructions
 
 ## How Lazy Context Loading Works
+
+To manage AI context as installable modules for LLM assistants,
+Lola implements **lazy context loading** - a meta-programming technique for
+optimizing LLM workflows through modular, on-demand context injection.
 
 Traditional approach: Load everything into a massive prompt
 
@@ -28,10 +27,10 @@ You are a chef and developer and writer and...
 Lazy context loading approach: Load only what you need, when you need it
 
 ```
-Main context monitors triggers ’
-User says "chocolate cake" ’
-Load chef persona + baking workflow ’
-Execute step-by-step instructions ’
+Main context monitors triggers
+User says "chocolate cake"
+Load chef persona + baking workflow
+Execute step-by-step instructions
 Unload when done
 ```
 
@@ -60,11 +59,12 @@ lola mod ls
 ### 2. Install a module
 
 ```bash
-# Install to a test directory
+# Install the module chef-buddy to a test directory
 lola mod install chef-buddy -d /tmp/test
 ```
 
 This creates:
+
 - `.lolas/chef-buddy/` - Module assets (contexts, scripts, templates)
 - `AGENTS.md` - Main context file (for Cursor)
 
@@ -75,73 +75,17 @@ cd /tmp/test
 cursor .
 ```
 
-Now your AI assistant:
-- Acts as an enthusiastic baking chef (persona loaded)
+When you start your AI assistant:
+
+- Acts as an enthusiastic baking chef (persona loaded) - say `hello` and start
+  to interact with the `Chef Baking Buddy`
 - Provides step-by-step recipes when you say "chocolate cake" (context injected)
 - Creates blog posts when you say "new blog post" (workflow executed)
 
-## How It Works
+## LoLas
 
-Lola modules use a structured approach to context management:
-
-### 1. Main Context File
-
-The entry point - like a `main()` function:
-
-```markdown
-**Name**: Chef Buddy
-**Persona**: Load from `.lolas/chef-buddy/context/persona.context`
-
-**Triggers**:
-- "chocolate cake" => Load `.lolas/chef-buddy/context/chocolate-cake.context`
-- "new blog post" => Load `.lolas/chef-buddy/context/blog.context`
-```
-
-**Main context files by AI assistant:**
-- `AGENTS.md` - For Cursor
-- `CLAUDE.md` - For Claude CLI
-- `GEMINI.md` - For Gemini CLI
-
-### 2. Context Files
-
-Specialized instructions loaded on-demand:
-
-```markdown
-**Name**: chocolate-cake.context
-**Description**: Step-by-step chocolate cake baking
-
-## Execution Workflow
-1. Preheat oven to 350°F
-   __WAIT_USER_RESPONSE__
-2. Mix dry ingredients
-   __WAIT_USER_RESPONSE__
-3. Add wet ingredients
-   ...
-```
-
-### 3. Helper Scripts
-
-Scripts do the heavy lifting (date calculations, API calls, file operations):
-
-```bash
-#!/bin/bash
-# Returns clean JSON for LLM to use
-echo '{"today": "2025-01-01T00:00:00Z", "file": "blog/post.md"}'
-```
-
-### 4. Workflow Control
-
-Contexts use special syntax for control flow:
-
-- `__WAIT_USER_RESPONSE__` - Pause and wait for user input
-- `$VARIABLE = __USER_LAST_RESPONSE__` - Store user responses
-- `IF/ELSE` - Conditional logic
-- `=> run script.sh` - Execute helper scripts
-
-## LoLas Modules
-
-Well we need to have a way to share all those cool, contexts, that's why
-Lola Modules were created. Lola modules are called **LoLas** from `Load Lazy`
+Well we need a way to share all those cool, contexts, that's why
+Lola Modules were created. modules are called **LoLas** from `Load Lazy`
 
 Now that you know how Lola works, what about help us to extend lola with you own
 modules?
@@ -157,7 +101,8 @@ Here's the quick overview on how to create your own modules.
 
 See the complete guide on **[Creating Lola Modules](docs/modules.md)**
 
-Also check the [Chef Baking Buddy Module](modules/chef-buddy) as example
+Also check the [Chef Baking Buddy Module](modules/chef-buddy) as example, with a
+module that makes your LLM become a cooking chef using a lola module.
 
 ## Further Reading
 
@@ -167,7 +112,7 @@ Also check the [Chef Baking Buddy Module](modules/chef-buddy) as example
 
 ## Contributing
 
-Lola is an experimental project exploring lazy context loading patterns. 
+Lola is an experimental project exploring lazy context loading patterns.
 Contributions welcome:
 
 1. Create new context modules
@@ -185,5 +130,5 @@ Igor Brandao
 
 ---
 
-_The AI is a CPU. Prompts are the assembly. Lazy context loading is your 
+_The AI is a CPU. Prompts are the assembly. Lazy context loading is your
 build system._

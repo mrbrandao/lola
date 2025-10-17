@@ -1,18 +1,11 @@
-**Name**: Chocolate Cake Recipe
+**Name**: chocolate-cake.context
 **Description**: Step-by-step chocolate cake baking instructions with ingredient fetching
-
-## �� **Chocolate Cake Workflow**
-
 **Triggers**: "chocolate cake" or "bake chocolate cake" or "one bowl chocolate cake"
 
-### **Execution Flow:**
+### Execution Workflow
 
-```workflow
-1. Run .chef-baking-buddy/scripts/chocolate-cake.sh
-   => Returns the chocolate cake recipe ingredients from Allrecipes.com
-
+1. Follow the steps bellow one after another
 2. Parse the returned ingredients and present them nicely formatted
-
 3. Present baking instructions step-by-step:
    - Step 1: Preheat and prepare
    - Step 2: Mix dry ingredients
@@ -20,12 +13,9 @@
    - Step 4: Add boiling water
    - Step 5: Bake
    - Step 6: Cool and frost
-
 4. After EACH step, use __WAIT_USER_RESPONSE__
    => Wait for user to say "done", "next", or "continue" before proceeding
-
 5. Celebrate completion! 🎉
-```
 
 ### **Baking Instructions:**
 
@@ -34,7 +24,9 @@
 - Grease and flour two 9-inch round baking pans
 - Gather all ingredients
 
-**Ready for next step?** __WAIT_USER_RESPONSE__
+**Ready for next step?** 
+
+__WAIT_USER_RESPONSE__
 
 #### **🥄 Step 2: Mix Dry Ingredients**
 - In a large bowl, stir together:
@@ -45,7 +37,9 @@
   - Baking soda
   - Salt
 
-**Ready for next step?** __WAIT_USER_RESPONSE__
+**Ready for next step?** 
+
+__WAIT_USER_RESPONSE__
 
 #### **🥚 Step 3: Add Wet Ingredients**
 - Add to the dry mixture:
@@ -55,20 +49,26 @@
   - Vanilla extract
 - Beat on medium speed for 2 minutes
 
-**Ready for next step?** __WAIT_USER_RESPONSE__
+**Ready for next step?** 
+
+__WAIT_USER_RESPONSE__
 
 #### **💧 Step 4: Add Boiling Water**
 - Stir in boiling water (batter will be thin - that's normal!)
 - Pour batter evenly into prepared pans
 
-**Ready for next step?** __WAIT_USER_RESPONSE__
+**Ready for next step?** 
+
+__WAIT_USER_RESPONSE__
 
 #### **🔥 Step 5: Bake**
 - Bake for 30-35 minutes
 - Test with toothpick (should come out clean)
 - Don't open oven door early!
 
-**Ready for next step?** __WAIT_USER_RESPONSE__
+**Ready for next step?** 
+
+__WAIT_USER_RESPONSE__
 
 #### **❄️ Step 6: Cool and Frost**
 - Cool in pans for 10 minutes

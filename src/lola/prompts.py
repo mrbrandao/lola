@@ -52,10 +52,11 @@ def select_module(modules: list[str]) -> str | None:
     if len(modules) == 1:
         return modules[0]
 
-    return inquirer.select(  # type: ignore[attr-defined]
+    result = inquirer.select(  # type: ignore[attr-defined]
         message="Select module:",
         choices=modules,
     ).execute()
+    return str(result) if result is not None else None
 
 
 def select_marketplace_name(names: list[str]) -> str | None:
@@ -66,10 +67,11 @@ def select_marketplace_name(names: list[str]) -> str | None:
     must explicitly confirm before a destructive action proceeds.
     Returns the selected marketplace name, or None if cancelled.
     """
-    return inquirer.select(  # type: ignore[attr-defined]
+    result = inquirer.select(  # type: ignore[attr-defined]
         message="Select marketplace:",
         choices=names,
     ).execute()
+    return str(result) if result is not None else None
 
 
 def select_installations(
@@ -109,7 +111,8 @@ def select_marketplace(matches: list[tuple[dict, str]]) -> str | None:
         )
         for module, marketplace_name in matches
     ]
-    return inquirer.select(  # type: ignore[attr-defined]
+    result = inquirer.select(  # type: ignore[attr-defined]
         message="Module found in multiple marketplaces. Select one:",
         choices=choices,
     ).execute()
+    return str(result) if result is not None else None

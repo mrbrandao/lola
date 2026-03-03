@@ -102,8 +102,11 @@ def _fetch_from_marketplace(
         )
         raise SystemExit(1)
 
-    repository: str = module_dict.get("repository") or ""
-    content_dirname: str | None = module_dict.get("path")
+    repository: str | None = module_dict.get("repository")
+    if not repository or not isinstance(repository, str):
+        console.print(f"[red]Module '{module_name}' has no repository URL[/red]")
+        raise SystemExit(1)
+    content_dirname = module_dict.get("path")
     console.print(f"[green]Found '{module_name}' in '{marketplace_name}'[/green]")
     console.print(f"[dim]Repository: {repository}[/dim]")
 
@@ -745,11 +748,11 @@ def install_cmd(
     if not module_path.exists() and not marketplace_ref:
         from lola.config import MARKET_DIR, CACHE_DIR
 
-        registry = MarketplaceRegistry(MARKET_DIR, CACHE_DIR)
-        matches = registry.search_module_all(module_name)
+        mp_registry = MarketplaceRegistry(MARKET_DIR, CACHE_DIR)
+        matches = mp_registry.search_module_all(module_name)
 
         if matches:
-            selected_marketplace = registry.select_marketplace(module_name, matches)
+            selected_marketplace = mp_registry.select_marketplace(module_name, matches)
             if selected_marketplace is None:
                 console.print("[yellow]Cancelled[/yellow]")
                 raise SystemExit(130)
@@ -773,7 +776,7 @@ def install_cmd(
             "[dim]Expected structure: skills/<name>/SKILL.md, commands/*.md, or agents/*.md[/dim]"
         )
         _handle_lola_error(ModuleInvalidError(module_name))
-    assert module is not None  # For type narrowing after NoReturn
+    assert module is not None  # nosec B101 - type narrowing after NoReturn, not a runtime guard
 
     # Validate module structure and skill files
     try:
@@ -923,7 +926,7 @@ def uninstall_cmd(
     console.print()
 
     # Group installations by project for cleaner display
-    by_project = {}
+    by_project: dict[str, list[Installation]] = {}
     for inst in installations:
         key = inst.project_path or "~/.lola (user scope)"
         if key not in by_project:
@@ -1242,7 +1245,7 @@ def list_installed_cmd(assistant: Optional[str]):
         return
 
     # Group by module name
-    by_module = {}
+    by_module: dict[str, list[Installation]] = {}
     for inst in installations:
         if inst.module_name not in by_module:
             by_module[inst.module_name] = []
@@ -1257,7 +1260,7 @@ def list_installed_cmd(assistant: Optional[str]):
         console.print(f"[bold]{mod_name}[/bold]")
 
         # Group installations by (scope, path) to consolidate assistants
-        by_scope_path = {}
+        by_scope_path: dict[tuple[str, str | None], list[Installation]] = {}
         for inst in insts:
             key = (inst.scope, inst.project_path)
             if key not in by_scope_path:

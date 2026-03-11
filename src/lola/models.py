@@ -104,22 +104,38 @@ class Agent:
 
 @dataclass
 class MCPServer:
-    """Represents an MCP server definition within a module."""
+    """Represents an MCP server definition within a module.
+
+    Supports both stdio (local) and remote (http/sse) transports:
+    - stdio: command, args, env
+    - remote: type (http|sse), url, headers
+    """
 
     name: str
-    command: str
+    command: Optional[str] = None
     args: list[str] = field(default_factory=list)
     env: dict[str, str] = field(default_factory=dict)
+    type: Optional[str] = None  # "http" | "sse" for remote servers
+    url: Optional[str] = None
+    headers: dict[str, str] = field(default_factory=dict)
 
     @classmethod
     def from_dict(cls, name: str, data: dict) -> "MCPServer":
         """Create from a dictionary entry in mcps.json."""
         return cls(
             name=name,
-            command=data.get("command", ""),
+            command=data.get("command"),
             args=data.get("args", []),
             env=data.get("env", {}),
+            type=data.get("type"),
+            url=data.get("url"),
+            headers=data.get("headers", {}),
         )
+
+    @property
+    def is_remote(self) -> bool:
+        """True if this is a remote (http/sse) server."""
+        return self.type in ("http", "sse")
 
 
 INSTRUCTIONS_FILE = "AGENTS.md"

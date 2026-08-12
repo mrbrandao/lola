@@ -1,6 +1,6 @@
 # ADR: Adopt Spec-Driven Development
 
-**Status**: Proposed
+**Status**: Accepted
 **Date**: 2026-08-12
 **Last Updated**: 2026-08-12
 **Authors**: Igor Brandao
